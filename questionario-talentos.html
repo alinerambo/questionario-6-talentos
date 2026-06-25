@@ -1,196 +1,408 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Os 6 Talentos Profissionais — Patrick Lencioni</title>
+<title>Os 6 Talentos Profissionais — VRV Gestão Empresarial</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:       #2AAAE2;
+    --blue-dark:  #1A7FB0;
+    --blue-light: #EAF6FD;
+    --orange:     #F5A623;
+    --orange-light: #FEF4E3;
+    --gray:       #8A8A8A;
+    --gray-light: #F4F4F4;
+    --gray-mid:   #E0E0E0;
+    --text:       #222222;
+    --text-soft:  #666666;
+    --white:      #FFFFFF;
+    --bg:         #F7F8FA;
+  }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f4f0;
-    color: #1a1a18;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 3rem;
   }
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
+
+  .container { max-width: 680px; margin: 0 auto; }
+
+  /* HEADER */
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--gray-mid);
   }
+  .logo-mark {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+  }
+  .logo-tri {
+    width: 0; height: 0;
+    border-style: solid;
+  }
+  .logo-text-wrap { line-height: 1; }
+  .logo-vrv {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--blue);
+  }
+  .logo-vrv span { color: var(--gray); }
+  .logo-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* CARD */
   .card {
-    background: #fff;
-    border-radius: 16px;
-    border: 0.5px solid rgba(0,0,0,0.12);
-    padding: 2rem;
+    background: var(--white);
+    border-radius: 18px;
+    border: 1px solid var(--gray-mid);
+    padding: 2rem 2rem;
     margin-bottom: 1rem;
   }
-  h1 {
-    font-size: 22px;
-    font-weight: 500;
-    color: #1a1a18;
-    margin-bottom: 6px;
+
+  /* WELCOME */
+  .welcome-badge {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1.25rem;
   }
-  .subtitle {
+  .welcome-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+  .welcome-title em {
+    font-style: normal;
+    color: var(--blue);
+  }
+  .welcome-desc {
     font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    color: var(--text-soft);
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
   }
-  .progress-wrap {
-    background: #eeede9;
+  .talent-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1.75rem;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--gray-mid);
+    background: var(--white);
+    color: var(--text);
+  }
+  .pill-icon { font-size: 15px; }
+  .welcome-info {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--gray-light);
+    border-radius: 12px;
+    margin-bottom: 1.75rem;
+  }
+  .info-item { display: flex; align-items: center; gap: 8px; }
+  .info-icon {
+    width: 32px; height: 32px;
+    background: var(--white);
     border-radius: 8px;
-    height: 6px;
+    border: 1px solid var(--gray-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .info-text { font-size: 13px; color: var(--text-soft); line-height: 1.4; }
+  .info-text strong { display: block; color: var(--text); font-weight: 500; }
+  .btn-start {
+    width: 100%;
+    padding: 14px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-start:hover { background: var(--blue-dark); }
+
+  /* QUIZ */
+  .progress-wrap {
+    background: var(--gray-light);
+    border-radius: 8px;
+    height: 5px;
     margin-bottom: 1.5rem;
   }
   .progress-fill {
     height: 100%;
     border-radius: 8px;
-    background: #7F77DD;
+    background: linear-gradient(90deg, var(--blue) 0%, #55C8F0 100%);
     transition: width 0.4s ease;
   }
   .q-tag {
     font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    padding: 3px 10px;
-    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    padding: 3px 11px;
+    border-radius: 20px;
     display: inline-block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-transform: uppercase;
   }
   .q-text {
-    font-size: 15px;
-    color: #1a1a18;
-    line-height: 1.55;
-    margin-bottom: 1.25rem;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
   }
-  .scale {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .scale-label {
-    font-size: 12px;
-    color: #888;
-    flex: 1;
-    min-width: 80px;
-  }
+  .scale { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .scale-label { font-size: 12px; color: var(--gray); flex: 1; min-width: 80px; }
   .scale-label:last-child { text-align: right; }
-  .scale-btns { display: flex; gap: 6px; }
+  .scale-btns { display: flex; gap: 8px; }
   .scale-btn {
-    width: 40px;
-    height: 40px;
+    width: 42px; height: 42px;
     border-radius: 50%;
-    border: 0.5px solid rgba(0,0,0,0.2);
-    background: #fff;
-    color: #444;
+    border: 1.5px solid var(--gray-mid);
+    background: var(--white);
+    color: var(--gray);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
-  .scale-btn:hover { background: #f0f0f0; }
-  .scale-btn.selected { background: #7F77DD; border-color: #7F77DD; color: #fff; }
+  .scale-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+  .scale-btn.selected { background: var(--blue); border-color: var(--blue); color: #fff; }
+
   .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
   }
-  .step-info { font-size: 13px; color: #888; }
-  .btn {
+  .step-info { font-size: 13px; color: var(--gray); }
+  .btn-nav {
     padding: 10px 22px;
-    border-radius: 8px;
-    border: 0.5px solid rgba(0,0,0,0.2);
-    background: #fff;
-    color: #1a1a18;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-mid);
+    background: var(--white);
+    color: var(--text);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
   }
-  .btn:hover { background: #f5f4f0; }
-  .btn.primary { background: #7F77DD; border-color: #7F77DD; color: #fff; }
-  .btn.primary:hover { background: #534AB7; border-color: #534AB7; }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .error-shake { animation: shake 0.4s ease; border-color: #E24B4A !important; }
-  @keyframes shake {
-    0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
+  .btn-nav:hover { border-color: var(--blue); color: var(--blue); }
+  .btn-nav.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .btn-nav.primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+  .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* RESULTS */
+  .result-header {
+    text-align: center;
+    padding: 1.75rem 0 1.25rem;
   }
-  .result-title { font-size: 22px; font-weight: 500; margin-bottom: 6px; }
-  .result-sub { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
-  .section-label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.6px;
-    color: #888;
+  .result-badge {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin: 1.25rem 0 10px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
   }
+  .result-title { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .result-sub { font-size: 14px; color: var(--text-soft); line-height: 1.65; }
+
+  .scores-card {
+    background: var(--white);
+    border: 1px solid var(--gray-mid);
+    border-radius: 18px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .scores-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .score-name { font-size: 13px; color: var(--text); min-width: 120px; }
+  .score-track { flex: 1; height: 7px; background: var(--gray-light); border-radius: 4px; overflow: hidden; }
+  .score-fill-bar { height: 100%; border-radius: 4px; transition: width 0.9s ease; }
+  .score-val { font-size: 12px; color: var(--gray); min-width: 34px; text-align: right; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin: 1.5rem 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-mid);
+  }
+
   .talent-card {
-    background: #fff;
-    border: 0.5px solid rgba(0,0,0,0.12);
+    background: var(--white);
+    border: 1px solid var(--gray-mid);
     border-radius: 16px;
-    padding: 1rem 1.25rem;
+    padding: 1.1rem 1.25rem;
     margin-bottom: 10px;
     display: flex;
     gap: 14px;
     align-items: flex-start;
   }
-  .talent-icon {
-    width: 44px;
-    height: 44px;
+  .talent-icon-wrap {
+    width: 46px; height: 46px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 20px;
     flex-shrink: 0;
   }
-  .talent-name { font-size: 15px; font-weight: 500; color: #1a1a18; margin-bottom: 4px; }
+  .talent-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .talent-badge {
     font-size: 11px;
-    font-weight: 500;
-    padding: 2px 9px;
-    border-radius: 6px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
     display: inline-block;
     margin-bottom: 8px;
+    letter-spacing: 0.3px;
   }
-  .talent-desc { font-size: 13px; color: #666; line-height: 1.6; }
-  .score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-  .score-name { font-size: 13px; color: #1a1a18; min-width: 110px; }
-  .score-track { flex: 1; height: 8px; background: #eeede9; border-radius: 4px; overflow: hidden; }
-  .score-fill-bar { height: 100%; border-radius: 4px; transition: width 0.9s ease; }
-  .score-val { font-size: 12px; color: #888; min-width: 34px; text-align: right; }
-  .restart-btn { width: 100%; margin-top: 1.5rem; }
+  .talent-desc { font-size: 13px; color: var(--text-soft); line-height: 1.65; }
+
+  .restart-btn {
+    width: 100%;
+    margin-top: 1.75rem;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-mid);
+    background: var(--white);
+    color: var(--text-soft);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .restart-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+  .footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 12px;
+    color: var(--gray);
+  }
+  .footer strong { color: var(--blue); }
 
   @media (max-width: 480px) {
-    body { padding: 1rem 0.75rem; }
+    body { padding: 1rem 0.75rem 2rem; }
     .card { padding: 1.25rem; }
     .scale { flex-direction: column; align-items: flex-start; gap: 10px; }
     .scale-label:last-child { text-align: left; }
-    .scale-btn { width: 36px; height: 36px; }
+    .welcome-info { flex-direction: column; gap: 0.75rem; }
   }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- QUIZ SECTION -->
-  <div id="quiz-section">
+    <!-- WELCOME SECTION -->
+  <div id="welcome-section">
     <div class="card">
-      <h1>Os 6 talentos profissionais</h1>
-      <p class="subtitle">Baseado no modelo de Patrick Lencioni. Responda cada afirmação com honestidade — não como acha que deveria ser, mas como realmente se sente. Não há respostas certas ou erradas.</p>
+      <span class="welcome-badge">Diagnóstico de Talentos</span>
+      <h1 class="welcome-title">Descubra seus <em>6 talentos</em><br>profissionais</h1>
+      <p class="welcome-desc">
+        Baseado no modelo de Patrick Lencioni, este questionário identifica como você naturalmente se energiza no trabalho — e o que te drena. Conhecer seus talentos permite que você atue nas funções certas, colabore melhor e entenda por que algumas atividades parecem esforço enquanto outras parecem fluir.
+      </p>
+
+      <div class="talent-pills">
+        <div class="pill"><span class="pill-icon">🔭</span> Reflexão</div>
+        <div class="pill"><span class="pill-icon">💡</span> Invenção</div>
+        <div class="pill"><span class="pill-icon">🎯</span> Discernimento</div>
+        <div class="pill"><span class="pill-icon">⚡</span> Arrebatamento</div>
+        <div class="pill"><span class="pill-icon">🤝</span> Facilitação</div>
+        <div class="pill"><span class="pill-icon">🏆</span> Tenacidade</div>
+      </div>
+
+      <div class="welcome-info">
+        <div class="info-item">
+          <div class="info-icon">📋</div>
+          <div class="info-text"><strong>24 perguntas</strong>Escala de 1 a 5</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">⏱️</div>
+          <div class="info-text"><strong>5 a 8 minutos</strong>Responda com calma</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✅</div>
+          <div class="info-text"><strong>Resultado imediato</strong>Gênios, competências e frustrações</div>
+        </div>
+      </div>
+
+      <p style="font-size:13px;color:var(--gray);margin-bottom:1.25rem;line-height:1.6">
+        Responda com honestidade — não como acha que deveria ser, mas como realmente se sente. Não há respostas certas ou erradas.
+      </p>
+
+      <button class="btn-start" onclick="startQuiz()">Iniciar questionário →</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SECTION -->
+  <div id="quiz-section" style="display:none">
+    <div class="card">
       <div class="progress-wrap"><div class="progress-fill" id="progress" style="width:0%"></div></div>
       <div id="q-area"></div>
       <div class="nav">
-        <button class="btn" id="btn-prev" onclick="navigate(-1)">Anterior</button>
-        <span class="step-info" id="step-info">Pergunta 1 de 24</span>
-        <button class="btn primary" id="btn-next" onclick="navigate(1)">Próxima</button>
+        <button class="btn-nav" id="btn-prev" onclick="navigate(-1)">← Anterior</button>
+        <span class="step-info" id="step-info">1 de 24</span>
+        <button class="btn-nav primary" id="btn-next" onclick="navigate(1)">Próxima →</button>
       </div>
     </div>
   </div>
@@ -198,19 +410,19 @@
   <!-- RESULT SECTION -->
   <div id="result-section" style="display:none"></div>
 
+  <div class="footer">Desenvolvido por <strong>VRV Gestão Empresarial</strong> · Baseado em Patrick Lencioni</div>
+
 </div>
 
 <script>
 const TALENTS = [
-  {id:'W', name:'Admiração',      icon:'🔭', bg:'#EEEDFE', textColor:'#3C3489'},
-  {id:'I', name:'Invenção',       icon:'💡', bg:'#E1F5EE', textColor:'#085041'},
-  {id:'D', name:'Discernimento',  icon:'🎯', bg:'#FAECE7', textColor:'#712B13'},
-  {id:'G', name:'Galvanização',   icon:'⚡', bg:'#FAEEDA', textColor:'#633806'},
-  {id:'E', name:'Facilitação',    icon:'🤝', bg:'#FBEAF0', textColor:'#72243E'},
-  {id:'T', name:'Tenacidade',     icon:'🏆', bg:'#E6F1FB', textColor:'#0C447C'},
+  {id:'W', name:'Reflexão',       icon:'🔭', bg:'#EAF6FD', textColor:'#1A7FB0', barColor:'#2AAAE2'},
+  {id:'I', name:'Invenção',       icon:'💡', bg:'#FEF4E3', textColor:'#B07010', barColor:'#F5A623'},
+  {id:'D', name:'Discernimento',  icon:'🎯', bg:'#F0F0F0', textColor:'#555555', barColor:'#8A8A8A'},
+  {id:'G', name:'Arrebatamento',  icon:'⚡', bg:'#E3F4FB', textColor:'#1A6B90', barColor:'#55C8F0'},
+  {id:'E', name:'Facilitação',    icon:'🤝', bg:'#EDF7F2', textColor:'#1A6B45', barColor:'#2ECC71'},
+  {id:'T', name:'Tenacidade',     icon:'🏆', bg:'#FDF0E3', textColor:'#9A5010', barColor:'#E8921A'},
 ];
-
-const BAR_COLORS = {W:'#AFA9EC',I:'#5DCAA5',D:'#F0997B',G:'#FAC775',E:'#ED93B1',T:'#85B7EB'};
 
 const DESCRIPTIONS = {
   W:{
@@ -275,16 +487,22 @@ const QUESTIONS = [
 let current = 0;
 let answers = new Array(QUESTIONS.length).fill(null);
 
-function getTalent(id) { return TALENTS.find(t => t.id === id); }
+function startQuiz() {
+  document.getElementById('welcome-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  renderQuestion();
+}
+
+function getTalent(id) { return TALENTS.find(function(t){ return t.id === id; }); }
 
 function renderQuestion() {
   const q = QUESTIONS[current];
   const t = getTalent(q.t);
   const pct = Math.round((current / QUESTIONS.length) * 100);
   document.getElementById('progress').style.width = pct + '%';
-  document.getElementById('step-info').textContent = 'Pergunta ' + (current+1) + ' de ' + QUESTIONS.length;
+  document.getElementById('step-info').textContent = (current+1) + ' de ' + QUESTIONS.length;
   document.getElementById('btn-prev').disabled = current === 0;
-  document.getElementById('btn-next').textContent = current === QUESTIONS.length - 1 ? 'Ver resultado →' : 'Próxima';
+  document.getElementById('btn-next').textContent = current === QUESTIONS.length - 1 ? 'Ver resultado →' : 'Próxima →';
 
   const sel = answers[current];
   let btns = '';
@@ -293,7 +511,6 @@ function renderQuestion() {
   }
 
   document.getElementById('q-area').innerHTML =
-    '<span class="q-tag" style="background:'+t.bg+';color:'+t.textColor+'">'+t.name+'</span>' +
     '<p class="q-text">'+q.text+'</p>' +
     '<div class="scale">' +
       '<span class="scale-label">Discordo totalmente</span>' +
@@ -333,21 +550,21 @@ function showResults() {
   const sorted = TALENTS.map(function(t){ return Object.assign({}, t, {score: scores[t.id]}); })
                          .sort(function(a,b){ return b.score - a.score; });
 
-  const geniuses      = sorted.slice(0,2);
-  const competencies  = sorted.slice(2,4);
-  const frustrations  = sorted.slice(4,6);
+  const geniuses     = sorted.slice(0,2);
+  const competencies = sorted.slice(2,4);
+  const frustrations = sorted.slice(4,6);
 
   document.getElementById('quiz-section').style.display = 'none';
 
   function talentCard(t, type) {
     const labels = {genius:'Gênio', competency:'Competência', frustration:'Frustração'};
     const badges = {
-      genius:'background:#E1F5EE;color:#085041',
-      competency:'background:#FAEEDA;color:#633806',
-      frustration:'background:#FCEBEB;color:#791F1F'
+      genius:'background:#E3F4FB;color:#1A6B90',
+      competency:'background:#FEF4E3;color:#B07010',
+      frustration:'background:#FDEAEA;color:#A03030'
     };
     return '<div class="talent-card">' +
-      '<div class="talent-icon" style="background:'+t.bg+'">'+t.icon+'</div>' +
+      '<div class="talent-icon-wrap" style="background:'+t.bg+'">'+t.icon+'</div>' +
       '<div style="flex:1">' +
         '<div class="talent-name">'+t.name+'</div>' +
         '<span class="talent-badge" style="'+badges[type]+'">'+labels[type]+'</span>' +
@@ -359,26 +576,28 @@ function showResults() {
     const pct = Math.round((t.score / maxScore) * 100);
     return '<div class="score-row">' +
       '<span class="score-name">'+t.icon+' '+t.name+'</span>' +
-      '<div class="score-track"><div class="score-fill-bar" id="bar-'+t.id+'" style="width:0%;background:'+BAR_COLORS[t.id]+'"></div></div>' +
+      '<div class="score-track"><div class="score-fill-bar" id="bar-'+t.id+'" style="width:0%;background:'+t.barColor+'"></div></div>' +
       '<span class="score-val">'+pct+'%</span>' +
     '</div>';
   }
 
-  var html = '<div class="card">' +
-    '<h1 class="result-title">Seu perfil de talentos profissionais</h1>' +
-    '<p class="result-sub">Com base nas suas respostas, veja como seus 6 talentos se distribuem entre gênios, competências e frustrações.</p>' +
-    '<div style="background:#f5f4f0;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.25rem">' +
-      '<p class="section-label" style="margin-top:0">Pontuação geral</p>' +
+  var html =
+    '<div class="result-header">' +
+      '<span class="result-badge">Resultado</span>' +
+      '<h2 class="result-title">Seu perfil de talentos profissionais</h2>' +
+      '<p class="result-sub">Veja como seus 6 talentos se distribuem entre gênios, competências e frustrações.</p>' +
+    '</div>' +
+    '<div class="scores-card">' +
+      '<p class="scores-label">Pontuação geral</p>' +
       sorted.map(scoreBar).join('') +
     '</div>' +
-    '<p class="section-label">Gênios — o que te dá energia e satisfação</p>' +
+    '<p class="section-label">Gênios — o que te dá energia</p>' +
     geniuses.map(function(t){ return talentCard(t,'genius'); }).join('') +
-    '<p class="section-label">Competências — o que você faz bem, mas não te energiza</p>' +
+    '<p class="section-label">Competências — você faz bem, mas não te energiza</p>' +
     competencies.map(function(t){ return talentCard(t,'competency'); }).join('') +
-    '<p class="section-label">Frustrações — o que te drena e esgota</p>' +
+    '<p class="section-label">Frustrações — o que te drena</p>' +
     frustrations.map(function(t){ return talentCard(t,'frustration'); }).join('') +
-    '<button class="btn restart-btn" onclick="restart()">Refazer o questionário</button>' +
-  '</div>';
+    '<button class="restart-btn" onclick="restart()">↩ Refazer o questionário</button>';
 
   document.getElementById('result-section').style.display = 'block';
   document.getElementById('result-section').innerHTML = html;
@@ -397,11 +616,8 @@ function restart() {
   answers = new Array(QUESTIONS.length).fill(null);
   document.getElementById('result-section').style.display = 'none';
   document.getElementById('result-section').innerHTML = '';
-  document.getElementById('quiz-section').style.display = 'block';
-  renderQuestion();
+  document.getElementById('welcome-section').style.display = 'block';
 }
-
-renderQuestion();
 </script>
 </body>
 </html>
