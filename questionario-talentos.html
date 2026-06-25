@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Os 6 Talentos Profissionais — Patrick Lencioni</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f4f0;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    border: 0.5px solid rgba(0,0,0,0.12);
+    padding: 2rem;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #1a1a18;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .progress-wrap {
+    background: #eeede9;
+    border-radius: 8px;
+    height: 6px;
+    margin-bottom: 1.5rem;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: #7F77DD;
+    transition: width 0.4s ease;
+  }
+  .q-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .q-text {
+    font-size: 15px;
+    color: #1a1a18;
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+  }
+  .scale {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .scale-label {
+    font-size: 12px;
+    color: #888;
+    flex: 1;
+    min-width: 80px;
+  }
+  .scale-label:last-child { text-align: right; }
+  .scale-btns { display: flex; gap: 6px; }
+  .scale-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(0,0,0,0.2);
+    background: #fff;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scale-btn:hover { background: #f0f0f0; }
+  .scale-btn.selected { background: #7F77DD; border-color: #7F77DD; color: #fff; }
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+  .step-info { font-size: 13px; color: #888; }
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: 0.5px solid rgba(0,0,0,0.2);
+    background: #fff;
+    color: #1a1a18;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: #f5f4f0; }
+  .btn.primary { background: #7F77DD; border-color: #7F77DD; color: #fff; }
+  .btn.primary:hover { background: #534AB7; border-color: #534AB7; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .error-shake { animation: shake 0.4s ease; border-color: #E24B4A !important; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
+  }
+  .result-title { font-size: 22px; font-weight: 500; margin-bottom: 6px; }
+  .result-sub { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    color: #888;
+    text-transform: uppercase;
+    margin: 1.25rem 0 10px;
+  }
+  .talent-card {
+    background: #fff;
+    border: 0.5px solid rgba(0,0,0,0.12);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .talent-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .talent-name { font-size: 15px; font-weight: 500; color: #1a1a18; margin-bottom: 4px; }
+  .talent-badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .talent-desc { font-size: 13px; color: #666; line-height: 1.6; }
+  .score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .score-name { font-size: 13px; color: #1a1a18; min-width: 110px; }
+  .score-track { flex: 1; height: 8px; background: #eeede9; border-radius: 4px; overflow: hidden; }
+  .score-fill-bar { height: 100%; border-radius: 4px; transition: width 0.9s ease; }
+  .score-val { font-size: 12px; color: #888; min-width: 34px; text-align: right; }
+  .restart-btn { width: 100%; margin-top: 1.5rem; }
+
+  @media (max-width: 480px) {
+    body { padding: 1rem 0.75rem; }
+    .card { padding: 1.25rem; }
+    .scale { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .scale-label:last-child { text-align: left; }
+    .scale-btn { width: 36px; height: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- QUIZ SECTION -->
+  <div id="quiz-section">
+    <div class="card">
+      <h1>Os 6 talentos profissionais</h1>
+      <p class="subtitle">Baseado no modelo de Patrick Lencioni. Responda cada afirmação com honestidade — não como acha que deveria ser, mas como realmente se sente. Não há respostas certas ou erradas.</p>
+      <div class="progress-wrap"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+      <div id="q-area"></div>
+      <div class="nav">
+        <button class="btn" id="btn-prev" onclick="navigate(-1)">Anterior</button>
+        <span class="step-info" id="step-info">Pergunta 1 de 24</span>
+        <button class="btn primary" id="btn-next" onclick="navigate(1)">Próxima</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SECTION -->
+  <div id="result-section" style="display:none"></div>
+
+</div>
+
+<script>
+const TALENTS = [
+  {id:'W', name:'Admiração',      icon:'🔭', bg:'#EEEDFE', textColor:'#3C3489'},
+  {id:'I', name:'Invenção',       icon:'💡', bg:'#E1F5EE', textColor:'#085041'},
+  {id:'D', name:'Discernimento',  icon:'🎯', bg:'#FAECE7', textColor:'#712B13'},
+  {id:'G', name:'Galvanização',   icon:'⚡', bg:'#FAEEDA', textColor:'#633806'},
+  {id:'E', name:'Facilitação',    icon:'🤝', bg:'#FBEAF0', textColor:'#72243E'},
+  {id:'T', name:'Tenacidade',     icon:'🏆', bg:'#E6F1FB', textColor:'#0C447C'},
+];
+
+const BAR_COLORS = {W:'#AFA9EC',I:'#5DCAA5',D:'#F0997B',G:'#FAC775',E:'#ED93B1',T:'#85B7EB'};
+
+const DESCRIPTIONS = {
+  W:{
+    genius:'Você é movido por questionar o mundo ao redor. Sente energia genuína ao contemplar possibilidades, fazer perguntas que outros não fazem e identificar que "algo poderia ser melhor". Sem sua presença, projetos começam sem questionar o propósito.',
+    competency:'Você consegue questionar e explorar possibilidades quando necessário, mas isso não é o que mais te energiza. Faz bem, porém não é sua fonte de motivação.',
+    frustration:'Ficar apenas contemplando e questionando sem chegar a ações concretas te esgota rapidamente. Você prefere avançar do que explorar indefinidamente.'
+  },
+  I:{
+    genius:'Você tem a capacidade natural de criar soluções originais onde não existia nada antes. Não apenas adaptar — criar. Quando um problema complexo surge, sua mente naturalmente começa a gerar ideias novas. Isso te energiza profundamente.',
+    competency:'Você é capaz de criar e inventar quando precisa, mas prefere trabalhar com estruturas já existentes. Cumpre o papel, mas não busca ativamente essas situações.',
+    frustration:'Ter que gerar ideias do zero repetidamente te cansa. Você prefere ter uma base sólida para trabalhar do que criar algo do nada constantemente.'
+  },
+  D:{
+    genius:'Você possui um "sensor" interior que avalia ideias, planos e pessoas com alta precisão — mesmo sem dados completos. Confia no seu instinto sobre o que vai funcionar ou não, e geralmente está certo. Isso te dá energia.',
+    competency:'Você avalia e pondera bem quando solicitado, mas não é sua primeira natureza buscar esse papel. Funciona bem nessa capacidade sem ser uma fonte de energia.',
+    frustration:'Ter que analisar e julgar constantemente te desgasta. Você prefere executar do que ficar avaliando possibilidades.'
+  },
+  G:{
+    genius:'Você sente energia ao mobilizar e inspirar pessoas para agir. Não apenas comunicar — fazer as pessoas se moverem. Quando precisa convencer outros ou liderar uma causa, isso não te pesa — te energiza de verdade.',
+    competency:'Você consegue mobilizar e liderar quando necessário, mas não é sua fonte primária de energia. Faz bem, porém de forma funcional, não apaixonada.',
+    frustration:'Ter que constantemente energizar e motivar outras pessoas te drena. Você prefere trabalhar com pessoas já motivadas do que precisar galvanizá-las.'
+  },
+  E:{
+    genius:'Você sente satisfação genuína em ajudar, apoiar e facilitar o sucesso dos outros. Não é subserviência — é uma força real. Quando alguém precisa de suporte para avançar, você aparece naturalmente e isso te dá energia.',
+    competency:'Você apoia e facilita bem quando necessário, mas não é o que mais te move. Cumpre o papel de apoio sem que isso seja sua grande motivação.',
+    frustration:'Ter que apoiar e facilitar constantemente o trabalho dos outros te esgota. Você prefere liderar ou executar de forma mais autônoma.'
+  },
+  T:{
+    genius:'Você encontra energia em levar projetos à linha de chegada. Resultado concreto, tarefa concluída — isso te satisfaz profundamente. Quando outros já perderam o fôlego, você ainda encontra motivação para finalizar.',
+    competency:'Você consegue persistir e concluir tarefas quando necessário, mas não é o que mais te dá energia. Entrega resultados de forma funcional.',
+    frustration:'Ter que empurrar projetos até a conclusão repetidamente te drena. Você prefere iniciar e criar do que se debruçar sobre detalhes finais de execução.'
+  }
+};
+
+const QUESTIONS = [
+  {t:'W', text:'Fico energizado quando reflito sobre possibilidades futuras e faço perguntas que outros ainda não fizeram.'},
+  {t:'W', text:'Me incomoda quando um projeto começa sem que ninguém questione profundamente o porquê dele existir.'},
+  {t:'W', text:'Tenho facilidade em perceber quando algo no mundo ou numa organização poderia ser fundamentalmente melhor.'},
+  {t:'W', text:'Prefiro explorar o problema por bastante tempo antes de tentar resolvê-lo — isso me dá energia.'},
+  {t:'I', text:'Criar soluções do zero, sem modelos prontos, é algo que me traz satisfação genuína.'},
+  {t:'I', text:'Quando enfrento um problema, minha mente automaticamente gera ideias e conexões que outros não veem.'},
+  {t:'I', text:'Me sinto energizado ao inventar algo novo, mesmo que não exista um caminho claro ainda.'},
+  {t:'I', text:'Sinto prazer em transformar um conceito abstrato em algo concreto e original.'},
+  {t:'D', text:'Consigo avaliar se uma ideia vai funcionar ou não com base em intuição — e geralmente estou certo.'},
+  {t:'D', text:'Quando ouço uma proposta, tenho quase que imediatamente uma sensação sobre seus pontos fracos.'},
+  {t:'D', text:'Outros frequentemente me pedem para avaliar ideias porque confiam no meu julgamento.'},
+  {t:'D', text:'Me sinto útil e energizado quando dou feedback construtivo que ajuda a aperfeiçoar algo.'},
+  {t:'G', text:'Mobilizar e inspirar pessoas a agir em torno de uma causa me dá energia — não me cansa.'},
+  {t:'G', text:'Sinto entusiasmo ao apresentar uma ideia de forma que faça outros quererem participar.'},
+  {t:'G', text:'Naturalmente me coloco como alguém que impulsiona projetos e convence as pessoas a se moverem.'},
+  {t:'G', text:'Me sinto bem ao assumir o papel de levar as pessoas a um objetivo comum, mesmo em situações difíceis.'},
+  {t:'E', text:'Fico satisfeito quando consigo ajudar alguém a avançar — mesmo que o mérito do resultado seja todo dessa pessoa.'},
+  {t:'E', text:'Tenho facilidade em perceber o que outras pessoas precisam para terem sucesso e me coloco à disposição.'},
+  {t:'E', text:'Apoiar e dar suporte a quem está executando algo importante me traz energia real.'},
+  {t:'E', text:'Me sinto bem ao facilitar o trabalho dos outros — isso não me parece secundário, é algo que valorizo.'},
+  {t:'T', text:'Tenho satisfação genuína em concluir tarefas e levar projetos até a linha de chegada.'},
+  {t:'T', text:'Quando outros já perderam o fôlego, ainda consigo encontrar motivação para finalizar o que foi começado.'},
+  {t:'T', text:'Me incomoda quando um projeto fica pela metade — sinto necessidade de ver resultados concretos.'},
+  {t:'T', text:'Execução e entrega consistente me dão mais energia do que ficar no campo das ideias.'},
+];
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+function getTalent(id) { return TALENTS.find(t => t.id === id); }
+
+function renderQuestion() {
+  const q = QUESTIONS[current];
+  const t = getTalent(q.t);
+  const pct = Math.round((current / QUESTIONS.length) * 100);
+  document.getElementById('progress').style.width = pct + '%';
+  document.getElementById('step-info').textContent = 'Pergunta ' + (current+1) + ' de ' + QUESTIONS.length;
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').textContent = current === QUESTIONS.length - 1 ? 'Ver resultado →' : 'Próxima';
+
+  const sel = answers[current];
+  let btns = '';
+  for(let i = 1; i <= 5; i++) {
+    btns += '<button class="scale-btn' + (sel===i?' selected':'') + '" onclick="selectAnswer('+i+')">'+i+'</button>';
+  }
+
+  document.getElementById('q-area').innerHTML =
+    '<span class="q-tag" style="background:'+t.bg+';color:'+t.textColor+'">'+t.name+'</span>' +
+    '<p class="q-text">'+q.text+'</p>' +
+    '<div class="scale">' +
+      '<span class="scale-label">Discordo totalmente</span>' +
+      '<div class="scale-btns">'+btns+'</div>' +
+      '<span class="scale-label">Concordo totalmente</span>' +
+    '</div>';
+}
+
+function selectAnswer(val) {
+  answers[current] = val;
+  renderQuestion();
+}
+
+function navigate(dir) {
+  if(dir === 1) {
+    if(answers[current] === null) {
+      const area = document.getElementById('q-area');
+      area.style.outline = '2px solid #E24B4A';
+      area.style.borderRadius = '8px';
+      setTimeout(function(){ area.style.outline = ''; }, 1200);
+      return;
+    }
+    if(current === QUESTIONS.length - 1) { showResults(); return; }
+    current++;
+  } else {
+    if(current > 0) current--;
+  }
+  renderQuestion();
+}
+
+function showResults() {
+  const scores = {};
+  TALENTS.forEach(function(t){ scores[t.id] = 0; });
+  QUESTIONS.forEach(function(q,i){ scores[q.t] += answers[i] || 0; });
+
+  const maxScore = 4 * 5;
+  const sorted = TALENTS.map(function(t){ return Object.assign({}, t, {score: scores[t.id]}); })
+                         .sort(function(a,b){ return b.score - a.score; });
+
+  const geniuses      = sorted.slice(0,2);
+  const competencies  = sorted.slice(2,4);
+  const frustrations  = sorted.slice(4,6);
+
+  document.getElementById('quiz-section').style.display = 'none';
+
+  function talentCard(t, type) {
+    const labels = {genius:'Gênio', competency:'Competência', frustration:'Frustração'};
+    const badges = {
+      genius:'background:#E1F5EE;color:#085041',
+      competency:'background:#FAEEDA;color:#633806',
+      frustration:'background:#FCEBEB;color:#791F1F'
+    };
+    return '<div class="talent-card">' +
+      '<div class="talent-icon" style="background:'+t.bg+'">'+t.icon+'</div>' +
+      '<div style="flex:1">' +
+        '<div class="talent-name">'+t.name+'</div>' +
+        '<span class="talent-badge" style="'+badges[type]+'">'+labels[type]+'</span>' +
+        '<p class="talent-desc">'+DESCRIPTIONS[t.id][type]+'</p>' +
+      '</div></div>';
+  }
+
+  function scoreBar(t) {
+    const pct = Math.round((t.score / maxScore) * 100);
+    return '<div class="score-row">' +
+      '<span class="score-name">'+t.icon+' '+t.name+'</span>' +
+      '<div class="score-track"><div class="score-fill-bar" id="bar-'+t.id+'" style="width:0%;background:'+BAR_COLORS[t.id]+'"></div></div>' +
+      '<span class="score-val">'+pct+'%</span>' +
+    '</div>';
+  }
+
+  var html = '<div class="card">' +
+    '<h1 class="result-title">Seu perfil de talentos profissionais</h1>' +
+    '<p class="result-sub">Com base nas suas respostas, veja como seus 6 talentos se distribuem entre gênios, competências e frustrações.</p>' +
+    '<div style="background:#f5f4f0;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.25rem">' +
+      '<p class="section-label" style="margin-top:0">Pontuação geral</p>' +
+      sorted.map(scoreBar).join('') +
+    '</div>' +
+    '<p class="section-label">Gênios — o que te dá energia e satisfação</p>' +
+    geniuses.map(function(t){ return talentCard(t,'genius'); }).join('') +
+    '<p class="section-label">Competências — o que você faz bem, mas não te energiza</p>' +
+    competencies.map(function(t){ return talentCard(t,'competency'); }).join('') +
+    '<p class="section-label">Frustrações — o que te drena e esgota</p>' +
+    frustrations.map(function(t){ return talentCard(t,'frustration'); }).join('') +
+    '<button class="btn restart-btn" onclick="restart()">Refazer o questionário</button>' +
+  '</div>';
+
+  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('result-section').innerHTML = html;
+
+  setTimeout(function() {
+    sorted.forEach(function(t) {
+      const pct = Math.round((t.score / maxScore) * 100);
+      const el = document.getElementById('bar-'+t.id);
+      if(el) el.style.width = pct + '%';
+    });
+  }, 100);
+}
+
+function restart() {
+  current = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('result-section').innerHTML = '';
+  document.getElementById('quiz-section').style.display = 'block';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
